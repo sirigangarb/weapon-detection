@@ -1,0 +1,27 @@
+# Start with a base image that has TensorFlow installed
+FROM tensorflow/tensorflow:latest
+
+
+# Set the working directory inside the container
+WORKDIR /app
+
+# Install required system libraries for your script (e.g., Pillow for image processing, pandas for data handling)
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    python3-dev \
+    libxml2-dev \
+    libxslt1-dev \
+    zlib1g-dev \
+    && apt-get clean
+
+# Copy the requirements.txt into the container
+COPY requirements.txt /app/requirements.txt
+
+# Install Python dependencies from the requirements.txt file
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copy the rest of your application files into the container
+COPY . /app
+
+# Specify the command to run the Python script when the container starts
+CMD ["python3", "main.py"]

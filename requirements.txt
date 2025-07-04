@@ -1,0 +1,6 @@
+glob2
+pandas
+tensorflow
+pillow
+lxml
+object-detection
